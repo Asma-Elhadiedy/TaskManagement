@@ -1,0 +1,33 @@
+﻿
+namespace TaskManagement.Application.Features.Tasks.Commands.CreateTask;
+
+internal sealed class CreateTaskCommandHandler(IUnitOfWork _unitOfWork) : IRequestHandler<CreateTaskCommand, Result<Guid>>
+{
+    public async Task<Result<Guid>> Handle(CreateTaskCommand request, CancellationToken cancellationToken)
+    {
+        var model = request.Request;
+        //var projectOwnerId = await _unitOfWork.Repository<Project>()
+        //    .GetItemSelectedAsync(
+        //        p => p.CreatedById, 
+        //        p => p.Id == request.ProjectId, 
+        //        cancellationToken);
+        
+        //if (projectOwnerId is null || projectOwnerId != request.CreatedBy)
+        //    return Result<Guid>.Failure("Task owner should be the project owner.");
+
+        var task = new ProjectTask
+        {
+            Name = model.Name,
+            Description = model.Description,
+            ProjectId = request.ProjectId,
+            StartDate = model.StartDate,
+            EndDate = model.EndDate,
+            CreatedById = request.CreatedBy,
+        };
+
+        _unitOfWork.Repository<ProjectTask>().Add(task);
+        if (await _unitOfWork.CompleteAsync(cancellationToken) > 0)
+            return Result<Guid>.Success(task.Id);
+        return Result<Guid>.Failure("Failed to create the task.");
+    }
+}

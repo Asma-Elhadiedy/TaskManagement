@@ -1,0 +1,10 @@
+﻿
+namespace TaskManagement.Application.DTOs.Responses;
+
+public sealed record TaskResponse(
+    Guid Id,
+    string Name,
+    string Description,
+    DateTime StartDate,
+    DateTime? EndDate,   
+    string Status);
