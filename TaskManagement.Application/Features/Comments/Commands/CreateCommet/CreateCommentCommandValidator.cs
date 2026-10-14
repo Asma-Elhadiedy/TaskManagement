@@ -25,6 +25,6 @@ public class CreateCommentCommandValidator : AbstractValidator<CreateCommentComm
             .WithMessage("You are not authorized to create a comment for this task.");
 
         RuleFor(x => x.Content)
-    .NotEmpty().WithMessage("Content is required.");
+            .NotEmpty().WithMessage("Content is required.");
     }
 }

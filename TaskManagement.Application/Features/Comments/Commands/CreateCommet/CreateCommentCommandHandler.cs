@@ -2,7 +2,7 @@
 
 namespace TaskManagement.Application.Features.Comments.Commands.CreateComment;
 
-internal class CreateCommentCommandHandler(IUnitOfWork _unitOfWork) : IRequestHandler<CreateCommentCommand, Result<Guid>>
+public class CreateCommentCommandHandler(IUnitOfWork _unitOfWork) : IRequestHandler<CreateCommentCommand, Result<Guid>>
 {
     public async Task<Result<Guid>> Handle(CreateCommentCommand request, CancellationToken cancellationToken)
     {
@@ -23,17 +23,8 @@ internal class CreateCommentCommandHandler(IUnitOfWork _unitOfWork) : IRequestHa
             CreatedById = request.CreatedBy
         });
 
-        return await _unitOfWork.CompleteAsync(cancellationToken)
-            .ContinueWith(t =>
-            {
-                if (t.IsCompletedSuccessfully)
-                {
-                    return Result<Guid>.Success(request.TaskId);
-                }
-                else
-                {
-                    return Result<Guid>.Failure("Failed to create comment.");
-                }
-            }, cancellationToken);
+        return await _unitOfWork.CompleteAsync(cancellationToken) > 0
+            ? Result<Guid>.Success(request.TaskId)
+            : Result<Guid>.Failure("Failed to create comment.");
     }
 }
