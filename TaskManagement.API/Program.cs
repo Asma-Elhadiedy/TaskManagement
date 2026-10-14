@@ -41,4 +41,11 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+
+app.MapHangfireDashboard("/jobs", new DashboardOptions
+{
+    Authorization = [new DashboardAuthorizationFilter()]
+});
+
+
 app.Run();

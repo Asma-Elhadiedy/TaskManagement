@@ -8,5 +8,7 @@
     <Project Path="TaskManagement.API/TaskManagement.API.csproj" />
     <Project Path="TaskManagement.Infrastructure/TaskManagement.Infrastructure.csproj" />
   </Folder>
-  <Folder Name="/Tests/" />
+  <Folder Name="/Tests/">
+    <Project Path="TaskManagement.Tests/TaskManagement.Tests.csproj" Id="7efc139f-93f7-45b4-88f2-2241cb954e9e" />
+  </Folder>
 </Solution>

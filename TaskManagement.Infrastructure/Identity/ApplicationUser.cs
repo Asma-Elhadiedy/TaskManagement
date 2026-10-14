@@ -1,4 +1,4 @@
-﻿
+﻿    
 namespace TaskManagement.Infrastructure.Identity;
 
 public class ApplicationUser : IdentityUser

@@ -26,3 +26,4 @@ public class SeedData(AppDbContext _context, RoleManager<IdentityRole> _roleMana
     }
 
 }
+

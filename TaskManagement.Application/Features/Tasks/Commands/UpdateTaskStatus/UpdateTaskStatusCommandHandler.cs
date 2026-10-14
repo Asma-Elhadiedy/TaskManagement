@@ -3,7 +3,7 @@ using TaskManagement.Domain.Exceptions;
 
 namespace TaskManagement.Application.Features.Tasks.Commands.UpdateTaskStatus;
 
-public class UpdateTaskStatusCommandHandler(IUnitOfWork _unitOfWork) : IRequestHandler<UpdateTaskStatusCommand, Result<bool>>
+public class UpdateTaskStatusCommandHandler(IUnitOfWork _unitOfWork, IBackgroundServices _backgroundServices) : IRequestHandler<UpdateTaskStatusCommand, Result<bool>>
 {
     public async Task<Result<bool>> Handle(UpdateTaskStatusCommand request, CancellationToken cancellationToken)
     {
@@ -19,7 +19,12 @@ public class UpdateTaskStatusCommandHandler(IUnitOfWork _unitOfWork) : IRequestH
 
         task.Status = newStatus;
         if (await _unitOfWork.CompleteAsync(cancellationToken) > 0)
+        {
+            if (newStatus == ETaskStatus.Completed)
+                await _backgroundServices.SendTaskCompletedNotificationAsync(task.CreatedById, task.Description, cancellationToken);
+
             return Result<bool>.Success(true);
+        }
 
         return Result<bool>.Failure("Failed to update task status");
     }

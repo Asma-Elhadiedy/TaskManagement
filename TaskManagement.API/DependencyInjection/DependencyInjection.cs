@@ -1,11 +1,8 @@
 ﻿
+
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
-using System.Reflection.Metadata;
-using System.Security.Claims;
-using System.Security.Cryptography.Xml;
 using System.Text;
 
 namespace TaskManagement.API.DependencyInjection;
@@ -60,6 +57,10 @@ public static class DependencyInjection
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:SecretKey"]!)),
                     };
                 });
+
+
+            services.AddSerilog();
+
             return services;
         }
     }
