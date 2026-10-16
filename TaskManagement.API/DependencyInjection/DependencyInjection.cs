@@ -3,6 +3,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
+using Quartz;
 using System.Text;
 
 namespace TaskManagement.API.DependencyInjection;

@@ -1,7 +1,9 @@
 ﻿
+using Hangfire;
+
 namespace TaskManagement.Infrastructure.Services;
 
-public class BackgroundServices(IBackgroundJobClient _backgroundJobs, ILogger<BackgroundServices> _logger) : IBackgroundServices
+public class HangfireBackgroundServices(IBackgroundJobClient _backgroundJobs, ILogger<HangfireBackgroundServices> _logger) : IBackgroundServices
 {
 
     public Task SendTaskCompletedNotificationAsync(string userId, string taskTitle, CancellationToken ct)

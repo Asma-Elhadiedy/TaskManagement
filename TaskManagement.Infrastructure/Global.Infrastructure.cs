@@ -1,5 +1,4 @@
 ﻿
-global using Hangfire;
 global using System.Linq.Expressions;
 global using TaskManagement.Domain.UoW;
 global using Microsoft.Extensions.Options;

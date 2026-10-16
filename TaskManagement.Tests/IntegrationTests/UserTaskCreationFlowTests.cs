@@ -1,10 +1,4 @@
 ﻿
-global using System.Net.Http.Headers;
-global using System.Net.Http.Json;
-global using TaskManagement.Application.DTOs.Responses;
-using System.Text.Json;
-using TaskManagement.Application.Common;
-
 namespace TaskManagement.Tests.IntegrationTests;
 
 public class UserTaskCreationFlowTests(WebApplicationFactory<Program> _factory) : IClassFixture<WebApplicationFactory<Program>>
@@ -16,8 +10,8 @@ public class UserTaskCreationFlowTests(WebApplicationFactory<Program> _factory) 
     [Fact]
     public async Task User_CanRegister_Login_CreateProject_CreateTask_UpdateStatus()
     {
-        var email = $"user_{Guid.NewGuid():N}@example.com";
-        const string password = "Password123!";
+        var email = $"user_{Guid.NewGuid():N}@test.com";
+        const string password = "Password123";
 
 
         #region 1. Register
